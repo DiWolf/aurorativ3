@@ -1,0 +1,50 @@
+{
+  "name": "padron-inspectores",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/app.js",
+    "copy:views": "shx mkdir -p build/views && ncp src/views build/views",
+    "start:dev": "nodemon -L -r tsconfig-paths/register src/app.ts --exec ts-node-dev --transpileOnly",
+    "build": "tsc -p . && npm run copy:views  && tsc-alias"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.858.0",
+    "@aws-sdk/s3-request-presigner": "^3.858.0",
+    "@azure/msal-node": "^3.6.4",
+    "axios": "^1.11.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "i18n": "^0.15.1",
+    "method-override": "^3.0.0",
+    "multer": "^2.0.2",
+    "mysql2": "^3.14.3",
+    "nunjucks": "^3.2.4",
+    "passport": "^0.7.0",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/connect-flash": "^0.0.40",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/i18n": "^0.13.12",
+    "@types/method-override": "^3.0.0",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.1.0",
+    "@types/nunjucks": "^3.2.6",
+    "@types/passport": "^1.0.17",
+    "ncp": "^2.0.0",
+    "nodemon": "^3.1.10",
+    "shx": "^0.4.0",
+    "ts-node-dev": "^2.0.0"
+  }
+}

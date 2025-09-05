@@ -1,0 +1,89 @@
+{% extends "templates/portal.njk" %}
+{% block content %}
+    <section class="section-header bg-primary text-white pb-7 pb-lg-11">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <h1 class="display-2 mb-3">Casos de Éxito</h1>
+                    <p class="lead">
+                        Historias reales de cómo he ayudado a negocios, emprendedores y gobiernos locales a transformar sus ideas en soluciones
+                        tecnológicas sólidas, seguras y escalables.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="pattern bottom"></div>
+    </section>
+    <section class="section section-lg line-bottom-light">
+  <div class="container mt-n7 mt-lg-n12 z-2">
+    <div class="row">
+      {% if feature %}
+      <!-- Feature card -->
+      <div class="col-lg-12 mb-5">
+        <div class="card bg-white border-light shadow-soft flex-md-row no-gutters p-4">
+          <a href="/casos-exito/{{ feature.slug }}" class="col-md-6 col-lg-6">
+            <img src="public/{{ feature.main_image or '/front/assets/img/placeholder.jpg' }}" alt="{{ feature.title }}" class="card-img-top">
+          </a>
+          <div class="card-body d-flex flex-column justify-content-between col-auto py-4 p-lg-5">
+            <a href="/casos-exito/{{ feature.slug }}">
+              <h2>{{ feature.title }}</h2>
+            </a>
+            {% if feature.resume %}
+            <p>{{ feature.resume }}</p>
+            {% endif %}
+            <div class="d-flex align-items-center">
+              <h6 class="text-muted small mb-0">{{ feature.client }}</h6>
+              <h6 class="text-muted small font-weight-normal mb-0 ml-auto">
+                <time datetime="{{ feature.created_at }}">{{ feature.created_at | date("d MMMM, yyyy") }}</time>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Other projects -->
+      {% for project in projects %}
+      <div class="col-12 col-md-6 mb-6">
+        <div class="card bg-white border-light shadow-soft p-4 rounded">
+          <a href="/casos-exito/{{ project.slug }}">
+            <img src="/public{{ project.main_image or '/front/assets/img/placeholder.jpg' }}" class="card-img-top" alt="{{ project.title }}">
+          </a>
+          <div class="card-body p-0 pt-4">
+            <a href="/casos-exito/{{ project.slug }}" class="h3">{{ project.title }}</a>
+            <div class="d-flex align-items-center my-4">
+              <h6 class="text-muted small mb-0">{{ project.client }}</h6>
+            </div>
+            {% if project.resume %}
+            <p class="mb-0">{{ project.resume }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center w-100 mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          {% if page > 1 %}
+          <li class="page-item"><a class="page-link" href="?page={{ page - 1 }}">Anterior</a></li>
+          {% endif %}
+
+          {% for i in range(1, totalPages + 1) %}
+          <li class="page-item {% if i == page %}active{% endif %}">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          {% endfor %}
+
+          {% if page < totalPages %}
+          <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">Siguiente</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

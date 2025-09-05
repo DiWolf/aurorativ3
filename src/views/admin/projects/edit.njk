@@ -1,0 +1,138 @@
+{% extends "templates/admin.njk" %}
+{% block content %}
+  {% include "partials/nav_admin.njk" %}
+  <div class="container-fluid mt--6">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Editar Proyecto</h3>
+          <a href="/admin/projects" class="btn btn-sm btn-secondary">
+            <i class="ni ni-bold-left"></i>
+            Volver
+          </a>
+        </div>
+        <!-- Formulario -->
+        <div class="card-body">
+          {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+          {% endif %}
+          {% if success %}
+            <div class="alert alert-success">{{ success }}</div>
+          {% endif %}
+
+          <form action="/admin/projects/{{ proyecto.id }}/edit" method="post" enctype="multipart/form-data">
+            <!-- Cliente -->
+            <div class="form-group">
+              <label for="client">Cliente</label>
+              <input type="text" class="form-control" id="client" name="client"
+                     value="{{ proyecto.client }}" required>
+            </div>
+
+            <!-- Título -->
+            <div class="form-group">
+              <label for="title">Título</label>
+              <input type="text" class="form-control" id="title" name="title"
+                     value="{{ proyecto.title }}" required>
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group">
+              <label for="description">Descripción</label>
+              <textarea id="description" name="description" rows="6" class="form-control">
+                {{ proyecto.description | safe }}
+              </textarea>
+            </div>
+
+            <!-- Resumen -->
+            <div class="form-group">
+              <label for="resume">Resumen (máx. 255 caracteres)</label>
+              <input type="text" class="form-control" id="resume" name="resume"
+                     maxlength="255" value="{{ proyecto.resume }}">
+              <small class="form-text text-muted">Texto breve que resume el proyecto.</small>
+            </div>
+
+            <!-- URL -->
+            <div class="form-group">
+              <label for="url">URL del Proyecto (opcional)</label>
+              <input type="url" class="form-control" id="url" name="url"
+                     value="{{ proyecto.url }}">
+            </div>
+
+            <!-- Imagen principal -->
+            <div class="form-group">
+              <label for="main_image">Imagen principal</label>
+              {% if proyecto.main_image %}
+                <div class="mb-2">
+                  <img src="{{ proyecto.main_image }}" alt="{{ proyecto.title }}"
+                       class="img-thumbnail" style="max-height: 120px;">
+                </div>
+              {% endif %}
+              <input type="file" class="form-control-file" id="main_image" name="main_image">
+            </div>
+
+            <!-- Imágenes adicionales -->
+            <div class="form-group">
+              <label>Imágenes adicionales</label>
+              {% if imagenes and imagenes.length > 0 %}
+                <div class="mb-3 d-flex flex-wrap">
+                  {% for img in imagenes %}
+                    <div class="mr-3 mb-3 text-center">
+                      <img src="{{ img.image_path }}" alt="Imagen extra"
+                           class="img-thumbnail" style="max-height: 120px;">
+                      <form action="/admin/projects/images/{{ img.id }}/delete" method="post" style="margin-top: 5px;">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                      </form>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <p class="text-muted">No hay imágenes adicionales para este proyecto.</p>
+              {% endif %}
+            </div>
+
+            <!-- Subir nuevas imágenes -->
+            <div class="form-group">
+              <label for="extra_images">Agregar más imágenes</label>
+              <input type="file" id="extra_images" name="extra_images" class="form-control-file" multiple>
+              <small class="form-text text-muted">Puedes seleccionar varias imágenes nuevas.</small>
+            </div>
+
+            <!-- Botón -->
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor TinyMCE -->
+  <script>
+    tinymce.init({
+      selector: '#description',
+      plugins: [
+        'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+        'link', 'lists', 'media', 'searchreplace', 'table',
+        'visualblocks', 'wordcount', 'checklist', 'mediaembed',
+        'casechange', 'formatpainter', 'pageembed', 'a11ychecker',
+        'tinymcespellchecker', 'permanentpen', 'powerpaste',
+        'advtable', 'advcode', 'advtemplate', 'uploadcare',
+        'mentions', 'tinycomments', 'tableofcontents',
+        'footnotes', 'mergetags', 'autocorrect', 'typography',
+        'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
+      ],
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | ' +
+               'link media table mergetags | addcomment showcomments | ' +
+               'spellcheckdialog a11ycheck typography uploadcare | ' +
+               'align lineheight | checklist numlist bullist indent outdent | ' +
+               'emoticons charmap | removeformat',
+      menubar: false,
+      branding: false,
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'AuroraTI',
+      uploadcare_public_key: '9be29f0fa526627d7dca'
+    });
+  </script>
+{% endblock %}

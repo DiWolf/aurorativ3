@@ -1,0 +1,97 @@
+{% extends "templates/portal.njk" %}
+{% block content %}
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 bg-primary text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h1 class="display-2 mb-3">¿Quién soy?</h1>
+      
+      </div>
+    </div>
+  </div>
+  <div class="pattern bottom"></div>
+</section>
+
+<section class="section section-lg pt-0">
+  <div class="container mt-n7 mt-lg-n13 z-2">
+    <div class="row justify-content-center">
+      
+      <!-- Texto principal -->
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+  <div class="card-body">
+              <p>
+      Me llamo <strong>Francisco Javier</strong> y soy desarrollador backend freelance. 
+      Desde Lázaro Cárdenas he trabajado en proyectos que van desde portales ciudadanos 
+      hasta sistemas para empresas privadas, siempre con un mismo objetivo: 
+      crear tecnología útil y confiable.
+    </p>
+
+    <p>
+      Mi enfoque está en <strong>Node.js y arquitecturas en la nube</strong>, 
+      pero lo que más disfruto es transformar ideas en proyectos reales que aporten valor. 
+      <strong>Aurora TI</strong> es mi espacio personal donde pongo mi nombre y mi compromiso 
+      en cada línea de código.
+    </p>
+
+    <p>
+      Creo en la <strong>simplicidad y la claridad</strong>: no se trata solo de programar, 
+      sino de diseñar soluciones que la gente realmente pueda usar, que sean fáciles de mantener 
+      y que duren en el tiempo. Me gusta trabajar de forma directa y cercana con cada cliente, 
+      porque entiendo que detrás de cada proyecto hay sueños, metas y necesidades reales.
+    </p>
+
+    <p>
+      Ser freelance me ha enseñado a ser versátil y estratégico. Puedo adaptarme tanto a la dinámica 
+      de una startup como a la formalidad de un gobierno local, siempre aportando lo mejor de mí. 
+      Para mí, cada desarrollo no es solo un encargo, es una oportunidad de dejar huella y demostrar 
+      que la tecnología, cuando se usa con propósito, puede mejorar la vida de las personas.
+    </p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Card de perfil -->
+      <div class="col-12 col-lg-4">
+         <div class="container-fluid mt--6">
+             <div class="row">
+                <div class="col-xl-12 order-xl-12">
+                    {# <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0"> #}
+        <div class="card card-profile border-light animate-up-3 ">
+          <!-- Imagen de portada -->
+          <img src="/public/front/assets/img/theme/img-1-1000x600.jpg" alt="Imagen de portada" class="card-img-top">
+
+          <!-- Imagen de perfil -->
+          <div class="row justify-content-center">
+            <div class="col-lg-4 order-lg-2">
+              <div class="card-profile-image">
+                <a href="#">
+                  <img src="/public/front/assets/img/pacoia.jpeg" class="rounded-circle" alt="Foto de perfil">
+                </a>
+              </div>
+            </div>
+          </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+             
+            </div>
+
+          <!-- Contenido -->
+          <div class="card-body pt-5 text-center">
+            <h5 class="h3">Francisco Javier</h5>
+             
+              <i class="ni education_hat mr-2"></i>Ing. en Tecnologías de la Información
+            </div>
+          </div>
+        </div>
+    </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+ {%include "partials/latest_projects.njk"%}
+ 
+{% endblock %}

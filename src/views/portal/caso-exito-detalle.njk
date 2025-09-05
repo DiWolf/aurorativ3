@@ -1,0 +1,61 @@
+{% extends "templates/portal.njk" %}
+{% block content %}
+<article>
+  <!-- Hero -->
+  <section class="section-header pb-7 pb-lg-10 bg-primary text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 text-center">
+          <h1 class="display-3 mb-4 px-lg-5">{{ proyecto.title }}</h1>
+          <div class="post-meta">
+            <span class="font-weight-bold mr-3">{{ proyecto.client }}</span>
+            <span class="post-date mr-3">{{ proyecto.created_at | date("d MMMM, yyyy") }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pattern bottom"></div>
+  </section>
+
+  <!-- Contenido -->
+  <div class="section section-sm bg-white pt-5 text-black">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          {{ proyecto.description | safe }}
+           {% if technologies and technologies.length > 0 %}
+  <div class="mt-4">
+    <h5>Tecnologías utilizadas</h5>
+    <div>
+      {% for tech in technologies %}
+        <span class="badge badge-primary mr-2 mb-2">{{ tech.name }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+        </div>
+      </div>
+
+      <!-- Galería -->
+      {% if imagenes and imagenes.length > 0 %}
+      <div class="row justify-content-center mt-5">
+        <div class="col-12">
+          <h4 class="mb-4">Galería del proyecto</h4>
+        </div>
+        {% for img in imagenes %}
+        <div class="col-6 col-md-4 mb-4">
+          {# <a href="/public{{ img.image_path }}" data-lightbox="galeria" data-title="{{ img.caption or proyecto.title }}"></a> #}
+            <img src="/public{{ img.image_path }}" alt="{{ img.caption or 'Imagen del proyecto' }}" class="img-fluid rounded shadow-sm">
+          
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</article>
+
+<!-- Lightbox2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+{% endblock %}

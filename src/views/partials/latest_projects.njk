@@ -1,0 +1,49 @@
+<section class="section section-lg pt-0 line-bottom-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5 mb-lg-6">
+      <div class="col-12 col-md-8 text-center">
+        <h1 class="display-3 mb-4">Últimos proyectos</h1>
+        <p class="lead">Estos son algunos de los trabajos más recientes que he desarrollado.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="timeline timeline-six px-3 px-lg-0">
+        {% for project in projects %}
+        <div class="row no-gutters">
+          {% if loop.index is odd %}
+          <div class="col-lg"></div>
+          {% endif %}
+
+          <div class="col-lg-1 text-center flex-column d-none d-lg-flex">
+            <div class="row h-50">
+              <div class="col {% if loop.index > 1 %}middle-line{% endif %}">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <span class="m-4 h4 lh-200 dot-separator bg-soft shadow-soft border border-light text-primary">{{ loop.index }}</span>
+            <div class="row h-50">
+              <div class="col middle-line">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+
+          <div class="col-lg py-2">
+            <div class="card timeline-card bg-soft shadow-soft border-light p-3">
+              <div class="card-body p-4">
+                <h4 class="mb-3">
+                  <span class="d-lg-none">{{ loop.index }}.</span> {{ project.title }}
+                </h4>
+                <p class="my-2">{{ project.client }}</p>
+              </div>
+            </div>
+          </div>
+
+          {% if loop.index is even %}
+          <div class="col-lg"></div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

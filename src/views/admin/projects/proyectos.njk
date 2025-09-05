@@ -1,0 +1,113 @@
+{% extends "templates/admin.njk" %}
+{% block content %}
+    {% include "partials/nav_admin.njk" %}
+    <div class="container-fluid mt--6">
+           <div class="col">
+          <div class="card">
+  <!-- Card header -->
+  <div class="card-header border-0 d-flex justify-content-between align-items-center">
+  <h3 class="mb-0">Proyectos</h3>
+  <a href="/admin/projects/create" class="btn btn-sm btn-primary">
+    <i class="ni ni-fat-add"></i> Nuevo
+  </a>
+</div>
+
+
+  <!-- Projects table -->
+  <div class="table-responsive">
+    <table class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Imagen</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Título</th>
+          <th scope="col">URL</th>
+          <th scope="col">Creado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        {% for project in projects %}
+        <tr>
+          <!-- Imagen -->
+          <td>
+            {% if project.main_image %}
+              <img src="/public{{ project.main_image }}" alt="{{ project.title }}" class="avatar rounded-circle">
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+
+          <!-- Cliente -->
+          <td>{{ project.client }}</td>
+
+          <!-- Título -->
+          <td>{{ project.title }}</td>
+
+          <!-- URL -->
+          <td>
+            {% if project.url %}
+              <a href="{{ project.url }}" target="_blank">Ver</a>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+
+          <!-- Fecha -->
+          <td>{{ project.created_at | date("DD/MM/YYYY") }}</td>
+
+          <!-- Acciones -->
+          <td class="text-right">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="/admin/projects/{{ project.id }}/edit">Editar</a>
+                <a class="dropdown-item" href="/admin/projects/{{ project.id }}/delete" onclick="return confirm('¿Eliminar este proyecto?')">Eliminar</a>
+                <a class="dropdown-item" href="/admin/projects/{{ project.id }}">Ver detalles</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center text-muted">No hay proyectos registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Card footer -->
+  <div class="card-footer py-4">
+    <nav aria-label="...">
+      <ul class="pagination justify-content-end mb-0">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">
+            <i class="fas fa-angle-left"></i>
+            <span class="sr-only">Anterior</span>
+          </a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">
+            <i class="fas fa-angle-right"></i>
+            <span class="sr-only">Siguiente</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+        </div>
+      </div>
+
+        </div>
+
+{% endblock %}
