@@ -1,0 +1,65 @@
+name: Build & Deploy to cPanel (FTP)
+
+on:
+  push:
+    branches: [ "main" ]  # cambia si usas otra rama
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: auroracpanel   # 👈 esto es clave
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install deps (dev)
+        run: npm ci
+
+      - name: Build (TypeScript -> build/)
+        run: npm run build
+
+      # Preparo carpeta deploy/ con lo necesario para producción
+      - name: Prepare deploy folder
+        run: |
+          rm -rf deploy
+          mkdir -p deploy
+          cp -r build deploy/
+          cp -r public deploy/
+          cp -r locales deploy/
+          cp package.json package-lock.json deploy/
+
+      # - name: Install production deps into deploy/
+      #   run: npm ci --omit=dev --prefix ./deploy
+
+      # Opcional: si usas Passenger/Node en cPanel y tu entrypoint es app.js en build/
+      # crea un .htaccess mínimo para redirigir a Passenger (ajústalo según tu setup)
+      # - name: Add .htaccess (optional)
+      #   run: |
+      #     cat > deploy/.htaccess <<'EOF'
+      #     PassengerEnabled on
+      #     PassengerAppEnv production
+      #     PassengerAppRoot .
+      #     PassengerStartupFile build/server.js
+      #     EOF
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: deploy/
+          server-dir: ${{ secrets.FTP_SERVER_DIR || '/public_html/' }}
+          exclude: |
+            **/.git*
+            **/.github*
+            **/.DS_Store
+            **/node_modules/.cache/**
+            **/.env
