@@ -1,7 +1,8 @@
 {
-  "name": "padron-inspectores",
+  "name": "aurora-ti-portfolio",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Aurora TI - Portfolio profesional y sistema de gestión de proyectos desarrollado con Node.js, TypeScript y Nunjucks",
+  "main": "build/app.js",
   "scripts": {
     "start": "npm run migrate && node build/app.js",
     "copy:views": "shx mkdir -p build/views && ncp src/views build/views",
@@ -16,10 +17,35 @@
     "test:unit": "jest tests/unit",
     "test:integration": "jest tests/integration"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "nodejs",
+    "typescript", 
+    "express",
+    "nunjucks",
+    "mysql",
+    "cms",
+    "freelance",
+    "aurora-ti"
+  ],
+  "author": {
+    "name": "Francisco Javier Guerrero",
+    "email": "contacto@aurorati.mx",
+    "url": "https://aurorati.mx"
+  },
   "license": "ISC",
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/artemisdev.git"
+  },
+  "homepage": "https://aurorati.mx",
+  "bugs": {
+    "url": "https://github.com/tu-usuario/artemisdev/issues"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.858.0",
     "@aws-sdk/s3-request-presigner": "^3.858.0",
