@@ -1,0 +1,50 @@
+{% extends "templates/portal.njk" %}
+
+{% block title %}Página no encontrada{% endblock %}
+
+{% block content %}
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 bg-primary text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h1 class="display-1 mb-3">404</h1>
+        <h2 class="display-4 mb-4">Página no encontrada</h2>
+        <p class="lead">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="pattern bottom"></div>
+</section>
+
+<section class="section section-lg pt-0">
+  <div class="container mt-n7 mt-lg-n13 z-2">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-soft bg-white border-light animate-up-3 text-center py-5">
+          <div class="card-body">
+            <p class="mb-4">
+              Puedes volver al <a href="/" class="font-weight-bold">inicio</a> o explorar otras secciones del portal:
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <a href="/" class="btn btn-primary mr-3 mb-2">
+                <i class="fas fa-home mr-2"></i>Ir al inicio
+              </a>
+              <a href="/casos-exito" class="btn btn-outline-primary mr-3 mb-2">
+                <i class="fas fa-briefcase mr-2"></i>Casos de éxito
+              </a>
+              <a href="/quien-soy" class="btn btn-outline-primary mr-3 mb-2">
+                <i class="fas fa-user mr-2"></i>Quién soy
+              </a>
+              <a href="/como-trabajo" class="btn btn-outline-primary mb-2">
+                <i class="fas fa-cogs mr-2"></i>Cómo trabajo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

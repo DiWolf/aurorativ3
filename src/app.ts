@@ -88,18 +88,40 @@ app.use(
   })
 );
 
-// Filtro date: soporta "DD/MM/YYYY"
+// Filtro date: soporta múltiples formatos
 env.addFilter("date", (value: any, pattern = "DD/MM/YYYY") => {
   if (!value) return "—";
   const d = value instanceof Date ? value : new Date(value);
   if (isNaN(+d)) return "—";
+  
   const pad = (n: number) => String(n).padStart(2, "0");
+  
+  // Nombres de meses en español
+  const monthNames = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ];
+  
   const map: Record<string, string> = {
+    // Días
     DD: pad(d.getDate()),
+    d: String(d.getDate()),
+    
+    // Meses
     MM: pad(d.getMonth() + 1),
+    M: String(d.getMonth() + 1),
+    MMMM: monthNames[d.getMonth()],
+    
+    // Años
     YYYY: String(d.getFullYear()),
+    yyyy: String(d.getFullYear()),
+    YY: String(d.getFullYear()).slice(-2),
+    yy: String(d.getFullYear()).slice(-2),
   };
-  return pattern.replace(/YYYY|MM|DD/g, (m: any) => map[m]);
+  
+  // Reemplazar patrones en orden de longitud (más largos primero)
+  // Usamos word boundaries (\b) para evitar reemplazar letras dentro de palabras
+  return pattern.replace(/\bYYYY\b|\byyyy\b|\bMMMM\b|\bMM\b|\bDD\b|\bYY\b|\byy\b|\bM\b|\bd\b/g, (match: string) => map[match] || match);
 });
 
 // ✅ año disponible en todas las vistas
@@ -117,6 +139,22 @@ app.use("/", indexRouter);
 //app.use("/artemis/blog/categories",adminCategoriesRouter)
 app.use("/admin/auth", authRouter);
 app.use("/admin/projects", adminProjectsRouter);
+
+// Manejo de 404 - debe ir al final de todas las rutas
+app.use((req, res) => {
+  res.status(404).render("portal/404.njk", {
+    title: "Página no encontrada"
+  });
+});
+
+// Manejo global de errores 500
+app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error("Error interno del servidor:", error);
+  res.status(500).render("portal/500.njk", {
+    title: "Error del servidor"
+  });
+});
+
 // Iniciar el servidor
 app.listen(3000, () => {
   console.log("Server running on port 3000");
