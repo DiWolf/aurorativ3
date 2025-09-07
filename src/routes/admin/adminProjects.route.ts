@@ -1,8 +1,35 @@
 import { Router } from "express";
 import adminProjectsController from "@controllers/admin/projects.controller";
 import multer from "multer";
+import path from "path";
 
-const upload = multer({ dest: "public/uploads/" });
+// Configuración de multer para preservar extensiones
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/uploads/");
+  },
+  filename: (req, file, cb) => {
+    // Generar nombre único pero preservando la extensión
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const extension = path.extname(file.originalname);
+    cb(null, uniqueSuffix + extension);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    // Solo permitir imágenes
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB máximo
+  }
+});
 const router = Router();
 
 // 📌 Listado de proyectos

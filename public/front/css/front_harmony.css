@@ -1,0 +1,114 @@
+/** AuroraTI - Harmony overrides
+ *  Purpose: increase contrast and harmony so the logo "aurorati.mx" resalta
+ *  Drop this file after your main CSS (or link it last) to see immediate effect.
+ ********************************************************************/
+
+/* -- Enforce a dark, saturated header to contrast with logo -- */
+header, .site-header, .navbar, .topbar, .main-header, .header {
+  background: linear-gradient(90deg, rgba(33,58,85,0.98), rgba(20,30,45,0.98)) !important;
+  color: #ffffff !important;
+  border-bottom: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backdrop-filter: saturate(120%) blur(2px);
+}
+
+/* -- Place the logo inside a subtle 'pill' for guaranteed contrast -- */
+.header .logo, .navbar .brand, .site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06) !important; /* ajusta opacidad si lo prefieres */
+  padding: 6px 10px !important;
+  border-radius: 10px;
+  margin-right: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* Variante más visible (usa si tu fondo es muy ocupado) */
+/* .header .logo { background: rgba(255,255,255,0.12) !important; } */
+
+/* -- Force logo size and crispness -- */
+.header .logo img, .navbar .brand img, .site-header .brand img {
+  height: 56px !important;
+  width: auto !important;
+  display: block !important;
+  image-rendering: optimizeQuality !important;
+  filter: none !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+/* If your logo PNG is dark and needs inversion, use this class on the img tag:
+   <img src="logo.png" class="logo-dark"> */
+.header .logo img.logo-dark, .navbar .brand img.logo-dark {
+  filter: invert(1) brightness(220%) contrast(105%) !important;
+}
+
+/* Add a tiny drop-shadow to separate it from textured backgrounds */
+.header .logo img {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+}
+
+/* -- Hero / Masthead overlay to increase text/logo contrast -- */
+.hero, .hero-section, .masthead, .page-hero {
+  position: relative;
+  z-index: 0;
+}
+.hero::after, .hero-section::after, .masthead::after, .page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.18));
+  z-index: 1;
+}
+
+/* Ensure hero content is above the overlay */
+.hero > *, .hero-section > *, .masthead > * { position: relative; z-index: 2; }
+
+/* -- CTA buttons use brand accent and stand out -- */
+.btn-primary, .button--primary, .btn--primary {
+  background: var(--brand-accent, #C62828) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.56rem 1.1rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 22px rgba(198,40,40,0.14) !important;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+.btn-primary:hover, .button--primary:hover, .btn--primary:hover {
+  transform: translateY(-2px) !important;
+  background: var(--brand-accent-dark, #8B1212) !important;
+  box-shadow: 0 10px 30px rgba(198,40,40,0.18) !important;
+}
+
+/* -- Footer: mantener coherencia con header -- */
+footer, .site-footer {
+  background: linear-gradient(90deg, rgba(20,30,45,0.98), rgba(33,58,85,0.98)) !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+
+/* -- Small screens: reduce pill and logo size to avoid saturación -- */
+@media (max-width: 768px) {
+  .header .logo, .navbar .brand { padding: 4px 8px !important; border-radius: 8px; }
+  .header .logo img, .navbar .brand img { height: 44px !important; }
+  .hero { padding: 48px 12px !important; }
+}
+
+/* -- Accessibility focused: keyboard focus visible -- */
+a:focus, button:focus, .btn:focus {
+  outline: 3px solid rgba(198,40,40,0.18) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px rgba(198,40,40,0.06) !important;
+  border-radius: 8px !important;
+}
+
+/* -- Optional quick tweaks you can enable/disable: -- */
+/* 1) If logo still blends: force a white background for the pill */
+/* .header .logo { background: #fff !important; } .header .logo img { filter: none !important; } */
+
+/* 2) If header should be semi-transparent (show background image): */
+/* header { background: rgba(33,58,85,0.78) !important; } */
+

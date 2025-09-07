@@ -1,0 +1,279 @@
+{% extends "templates/portal.njk" %}
+{% block content %}
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 bg-primary text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h1 class="display-2 mb-3">Hablemos de tu proyecto</h1>
+        <p class="lead mb-4">
+          ¿Tienes una idea que quieres hacer realidad? Conversemos sobre cómo puedo ayudarte 
+          a crear la solución tecnológica perfecta para tu negocio.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="pattern bottom"></div>
+</section>
+
+<section class="section section-lg pt-0">
+  <div class="container mt-n7 mt-lg-n13 z-2">
+    <div class="row">
+      
+      <!-- Formulario de contacto -->
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+          <div class="card-body">
+            <h3 class="mb-4">Cuéntame sobre tu proyecto</h3>
+            <p class="text-muted mb-4">
+              Completa el formulario y me pondré en contacto contigo en menos de 24 horas 
+              para discutir los detalles de tu proyecto.
+            </p>
+            
+            <form id="contactForm" action="#" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="nombre" class="form-label">Nombre completo *</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="empresa" class="form-label">Empresa/Organización</label>
+                  <input type="text" class="form-control" id="empresa" name="empresa">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Correo electrónico *</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefono" name="telefono">
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="tipo_proyecto" class="form-label">Tipo de proyecto *</label>
+                <select class="form-control" id="tipo_proyecto" name="tipo_proyecto" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="pagina-web">Página Web</option>
+                  <option value="web">Aplicación Web</option>
+                  <option value="api">API/Backend</option>
+                  <option value="ecommerce">E-commerce</option>
+                  <option value="portal">Portal Ciudadano</option>
+                  <option value="sistema">Sistema de Gestión</option>
+                  <option value="migracion">Migración de Sistema</option>
+                  <option value="consulta">Consulta/Asesoría</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="presupuesto" class="form-label">Presupuesto aproximado</label>
+                <select class="form-control" id="presupuesto" name="presupuesto">
+                  <option value="">Selecciona un rango</option>
+                  <option value="menos-15k">Menos de $15,000 MXN</option>
+                  <option value="15k-30k">$15,000 - $30,000 MXN</option>
+                  <option value="30k-50k">$30,000 - $50,000 MXN</option>
+                  <option value="50k-100k">$50,000 - $100,000 MXN</option>
+                  <option value="100k-200k">$100,000 - $200,000 MXN</option>
+                  <option value="mas-200k">Más de $200,000 MXN</option>
+                  <option value="por-definir">Por definir</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="mensaje" class="form-label">Describe tu proyecto *</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" rows="5" 
+                          placeholder="Cuéntame sobre tu idea, qué necesitas, cuáles son tus objetivos, etc. Mientras más detalles me proporciones, mejor podré ayudarte." required></textarea>
+              </div>
+              
+              <div class="mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="acepto_terminos" name="acepto_terminos" required>
+                  <label class="form-check-label" for="acepto_terminos">
+                    Acepto que mis datos sean utilizados para contactarme sobre este proyecto *
+                  </label>
+                </div>
+              </div>
+              
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fas fa-paper-plane mr-2"></i>
+                  Enviar mensaje
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Información de contacto -->
+      <div class="col-12 col-lg-4">
+        <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+          <div class="card-body">
+            <h4 class="mb-4">Información de contacto</h4>
+            
+            <div class="d-flex align-items-center mb-4">
+              <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Correo electrónico</h6>
+                <a href="mailto:contacto@aurorati.mx" class="text-muted">contacto@aurorati.mx</a>
+              </div>
+            </div>
+            
+            <div class="d-flex align-items-center mb-4">
+              <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Ubicación</h6>
+                <span class="text-muted">Lázaro Cárdenas, Michoacán</span>
+              </div>
+            </div>
+            
+            <div class="d-flex align-items-center mb-4">
+              <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Tiempo de respuesta</h6>
+                <span class="text-muted">Menos de 24 horas</span>
+              </div>
+            </div>
+            
+            <div class="d-flex align-items-center mb-4">
+              <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <h6 class="mb-0">Disponibilidad</h6>
+                <span class="text-muted">Lunes a Viernes</span>
+              </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <h5 class="mb-3">¿Por qué contactarme?</h5>
+            <ul class="list-unstyled text-muted">
+              <li class="mb-2">
+                <i class="fas fa-check text-success mr-2"></i>
+                Consulta inicial gratuita
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check text-success mr-2"></i>
+                Propuesta detallada sin compromiso
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check text-success mr-2"></i>
+                Presupuesto transparente
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check text-success mr-2"></i>
+                Tiempo de entrega realista
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Card de garantía -->
+        <div class="card shadow-soft bg-gradient-primary text-white animate-up-3 mt-4">
+          <div class="card-body text-center">
+            <div class="icon icon-shape icon-shape-white rounded-circle mb-3 mx-auto">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h5 class="text-white mb-3">Garantía de acompañamiento</h5>
+            <p class="text-white-50 mb-0">
+              1 año de soporte incluido. Tu sistema estará siempre funcionando perfectamente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de confianza -->
+<section class="section section-lg bg-soft">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-12 col-md-8 text-center">
+        <h2 class="mb-4">¿Qué esperar después del contacto?</h2>
+        <p class="lead">Un proceso claro y transparente desde el primer contacto hasta la entrega.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <div class="card border-light shadow-soft text-center h-100">
+          <div class="card-body p-4">
+            <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h5 class="mb-3">1. Consulta inicial</h5>
+            <p class="text-muted">Analizamos tu proyecto y definimos objetivos claros.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3 mb-4">
+        <div class="card border-light shadow-soft text-center h-100">
+          <div class="card-body p-4">
+            <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h5 class="mb-3">2. Propuesta detallada</h5>
+            <p class="text-muted">Recibes una propuesta completa con tiempos y costos.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3 mb-4">
+        <div class="card border-light shadow-soft text-center h-100">
+          <div class="card-body p-4">
+            <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <h5 class="mb-3">3. Inicio del proyecto</h5>
+            <p class="text-muted">Comenzamos el desarrollo con comunicación constante.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3 mb-4">
+        <div class="card border-light shadow-soft text-center h-100">
+          <div class="card-body p-4">
+            <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h5 class="mb-3">4. Entrega y soporte</h5>
+            <p class="text-muted">Sistema funcionando con 1 año de soporte incluido.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Script para el formulario -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Aquí puedes agregar la lógica para enviar el formulario
+  // Por ahora, mostraremos un mensaje de confirmación
+  Swal.fire({
+    title: '¡Mensaje enviado!',
+    text: 'Gracias por contactarme. Me pondré en contacto contigo en menos de 24 horas.',
+    icon: 'success',
+    confirmButtonText: 'Perfecto'
+  }).then(() => {
+    // Limpiar el formulario
+    this.reset();
+  });
+});
+</script>
+
+{% endblock %}

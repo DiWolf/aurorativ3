@@ -21761,7 +21761,8 @@ button.section-gray-800:focus {
   text-transform: uppercase;
 }
 .navbar-brand img.common {
-  height: 35px;
+  height: 70px;
+  width:   202px;
 }
 .navbar-brand img {
   height: 35px;

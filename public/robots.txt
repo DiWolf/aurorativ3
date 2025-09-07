@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aurorati.mx/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin/
+
+# Allow all public content
+Allow: /public/
+Allow: /uploads/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

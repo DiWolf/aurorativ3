@@ -1,17 +1,100 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{{ title or "AuroraTI" }}</title>
+  
+  <!-- SEO Meta Tags -->
+  <title>{{ seo_title or title or "Francisco Javier - Desarrollador Backend Freelance | Aurora TI" }}</title>
+  <meta name="description" content="{{ seo_description or "Desarrollador backend freelance especializado en Node.js, TypeScript y soluciones en la nube. Creo sistemas robustos y escalables para empresas y gobiernos locales en Lázaro Cárdenas, Michoacán." }}">
+  <meta name="keywords" content="desarrollador backend, freelance, Node.js, TypeScript, desarrollo web, sistemas empresariales, portales ciudadanos, Lázaro Cárdenas, Michoacán, Francisco Javier, Aurora TI">
+  <meta name="author" content="Francisco Javier - Aurora TI">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="es">
+  <meta name="geo.region" content="MX-MIC">
+  <meta name="geo.placename" content="Lázaro Cárdenas, Michoacán">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ og_url or 'https://aurorati.mx' }}">
+  <meta property="og:title" content="{{ og_title or seo_title or title or 'Francisco Javier - Desarrollador Backend Freelance' }}">
+  <meta property="og:description" content="{{ og_description or seo_description or 'Desarrollador backend freelance especializado en crear sistemas robustos y escalables para empresas y gobiernos locales.' }}">
+  <meta property="og:image" content="{{ og_image or 'https://aurorati.mx/public/front/assets/img/brand/aurorati_wordmark_1024x256.png' }}">
+  <meta property="og:site_name" content="Aurora TI">
+  <meta property="og:locale" content="es_MX">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ og_url or 'https://aurorati.mx' }}">
+  <meta property="twitter:title" content="{{ og_title or seo_title or title or 'Francisco Javier - Desarrollador Backend Freelance' }}">
+  <meta property="twitter:description" content="{{ og_description or seo_description or 'Desarrollador backend freelance especializado en crear sistemas robustos y escalables para empresas y gobiernos locales.' }}">
+  <meta property="twitter:image" content="{{ og_image or 'https://aurorati.mx/public/front/assets/img/brand/aurorati_wordmark_1024x256.png' }}">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ canonical_url or 'https://aurorati.mx' }}">
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Francisco Javier",
+    "jobTitle": "Desarrollador Backend Freelance",
+    "description": "Desarrollador backend freelance especializado en Node.js, TypeScript y soluciones en la nube. Creo sistemas robustos y escalables para empresas y gobiernos locales.",
+    "url": "https://aurorati.mx",
+    "image": "https://aurorati.mx/public/front/assets/img/pacoia.jpeg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lázaro Cárdenas",
+      "addressRegion": "Michoacán",
+      "addressCountry": "MX"
+    },
+    "email": "contacto@aurorati.mx",
+    "telephone": "+52-753-133-8510",
+    "sameAs": [
+      "https://www.linkedin.com/in/francisco-javier",
+      "https://github.com/aurorati"
+    ],
+    "knowsAbout": [
+      "Node.js",
+      "TypeScript",
+      "Desarrollo Backend",
+      "APIs REST",
+      "Bases de Datos",
+      "Desarrollo Web",
+      "Sistemas Empresariales",
+      "Portales Ciudadanos"
+    ],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Desarrollador Backend",
+      "occupationLocation": {
+        "@type": "City",
+        "name": "Lázaro Cárdenas, Michoacán"
+      }
+    }
+  }
+  </script>
+  
   <!-- Favicon -->
   <link rel="icon" href="/public/admin/assets/img/brand/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/public/admin/assets/img/brand/favicon.png">
+  
+  <!-- Performance optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//wa.me">
+  
   <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
   <!-- Icons -->
  <!-- Favicon -->
-<link rel="icon" href="/public/admin/assets/img/favicon/favicon.png" type="image/png">
+<link rel="icon" href="/public/admin/assets/img/brand/favicon.png" type="image/png">
 
 <!-- Fontawesome -->
-<link type="text/css" href="/public/admin/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link type="text/css" href="/public/admin/assets/vendor/@fortawesome/fontawesome-free/css/fontawesome.min.css" rel="stylesheet">
+<link type="text/css" href="/public/admin/assets/vendor/@fortawesome/fontawesome-free/css/solid.min.css" rel="stylesheet">
+<link type="text/css" href="/public/admin/assets/vendor/@fortawesome/fontawesome-free/css/regular.min.css" rel="stylesheet">
+<link type="text/css" href="/public/admin/assets/vendor/@fortawesome/fontawesome-free/css/brands.min.css" rel="stylesheet">
 
 <!-- Nucleo icons -->
 <link rel="stylesheet" href="/public/admin/dashboard/assets/vendor/nucleo/css/nucleo.css" type="text/css">
@@ -20,6 +103,7 @@
 <link type="text/css" href="/public/admin/vendor/prismjs/themes/prism.css" rel="stylesheet">
 
 <!-- Front CSS -->
+
 <link type="text/css" href="/public/front/css/front.css" rel="stylesheet">
 
   <link type="text/css" href="/public/front/assets/vendor/prismjs/themes/prism.css" rel="stylesheet">
@@ -29,16 +113,16 @@
 <header class="header-global">
     <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-dark navbar-theme-primary">
         <div class="container">
-            <a class="navbar-brand @@logo_classes" href="@@path_common/index.html">
-                <img class="navbar-brand-dark common" src="@@path/assets/img/brand/light.svg" height="35" alt="Logo light">
-                <img class="navbar-brand-light common" src="@@path/assets/img/brand/dark.svg" height="35" alt="Logo dark">
+            <a class="navbar-brand @@logo_classes" href="/">
+                <img class="navbar-brand-dark common" src="/public/front/assets/img/brand/aurorati_wordmark_1024x256.png" height="35" width="101" alt="Logo light">
+                <img class="navbar-brand-light common" src="/public/front/assets/img/brand/aurorati_wordmark_1024x256.png" height="35" width="101" alt="Logo dark">
             </a>
             <div class="navbar-collapse collapse" id="navbar_global">
                 <div class="navbar-collapse-header">
                     <div class="row">
                         <div class="col-6 collapse-brand">
-                            <a href="@@path_common/index.html">
-                                <img src="@@path/assets/img/brand/dark.svg" height="35" alt="Logo Impact">
+                            <a href="/">
+                                <img src="public/front/assets/img/brand/aurorati_wordmark_1024x256.png" height="35" alt="Logo Impact">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -60,16 +144,15 @@
                         <a href="/como-trabajo" class="nav-link">Cómo trabajo</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/casos-exito" class="nav-link">Historias de Éxito</a>
+                        <a href="/casos-exito" class="nav-link">Casos de éxito</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/contacto" class="nav-link">Blog</a>
+                        <a href="/contacto" class="nav-link">Contacto</a>
                     </li>
                 </ul>
             </div>
             <div class="d-none d-lg-block @@cta_button_classes">
-                
-                <a href="https://www.creative-tim.com/product/impact-design-system-pro" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i> Contáctame</a>
+                <a href="/contacto" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i> Contáctame</a>
             </div>
             <div class="d-flex d-lg-none align-items-center">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
@@ -92,12 +175,16 @@
       <!-- Marca -->
       <div class="col-lg-4 mb-4 mb-lg-0">
         <a class="footer-brand mr-lg-5 d-flex" href="/">
-          <img src="/public/front/assets/img/brand/light.svg" height="35" class="mr-3" alt="Aurora TI logo">
+          <img src="public/front/assets/img/brand/aurorati_wordmark_1024x256.png" height="101" width="202" class="mr-3" alt="Aurora TI logo">
         </a>
         <p class="my-4">
-          <strong>Aurora TI</strong> es mi espacio como desarrollador freelance.  
-          Transformo ideas en soluciones digitales sólidas, seguras y escalables para negocios, emprendedores y gobiernos locales.
+          <strong>Francisco Javier</strong> - Desarrollador backend freelance especializado en crear 
+          sistemas robustos y escalables para empresas y gobiernos locales.
         </p>
+        <div class="d-flex align-items-center">
+          <i class="fas fa-map-marker-alt mr-2"></i>
+          <span>Lázaro Cárdenas, Michoacán</span>
+        </div>
       </div>
 
       <!-- Navegación -->
@@ -106,8 +193,8 @@
         <ul class="links-vertical">
           <li><a href="/">Inicio</a></li>
           <li><a href="/quien-soy">Quién soy</a></li>
-          <li><a href="/servicios">Servicios</a></li>
-          <li><a href="/casos-exito">Casos de Éxito</a></li>
+          <li><a href="/como-trabajo">Cómo trabajo</a></li>
+          <li><a href="/casos-exito">Casos de éxito</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
       </div>
@@ -116,17 +203,37 @@
       <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
         <h6>Contacto</h6>
         <ul class="links-vertical">
-          <li><a href="mailto:contacto@aurorati.mx">contacto@aurorati.mx</a></li>
-          <li><a href="https://wa.me/527531338510" target="_blank">WhatsApp</a></li>
-          <li><a href="https://www.linkedin.com/in/francisco-javier" target="_blank">LinkedIn</a></li>
-          <li><a href="https://github.com/aurorati" target="_blank">GitHub</a></li>
+          <li><a href="mailto:contacto@aurorati.mx"><i class="fas fa-envelope mr-2"></i>Email</a></li>
+          <li><a href="https://wa.me/527531338510" target="_blank"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a></li>
+          <li><a href="/contacto"><i class="fas fa-paper-plane mr-2"></i>Formulario</a></li>
         </ul>
       </div>
 
-      <!-- Newsletter -->
+      <!-- Redes Sociales -->
+      <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+        <h6>Redes Sociales</h6>
+        <ul class="links-vertical">
+          <li><a href="https://www.linkedin.com/in/francisco-javier" target="_blank"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a></li>
+          <li><a href="https://github.com/aurorati" target="_blank"><i class="fab fa-github mr-2"></i>GitHub</a></li>
+        </ul>
+      </div>
+
+      <!-- Call to Action -->
       <div class="col-12 col-sm-6 col-lg-4">
-  
-        <small class="mt-2 form-text">Nunca compartiremos tus datos. Consulta nuestra <a href="/privacidad" class="font-weight-bold text-underline">Política de Privacidad</a></small>
+        <h6>¿Listo para tu proyecto?</h6>
+        <p class="text-white-50 mb-3">
+          Conversemos sobre cómo puedo ayudarte a hacer realidad tu idea tecnológica.
+        </p>
+        <a href="/contacto" class="btn btn-white btn-sm">
+          <i class="fas fa-rocket mr-2"></i>
+          Iniciar proyecto
+        </a>
+        <div class="mt-3">
+          <small class="text-white-50">
+            <i class="fas fa-shield-alt mr-1"></i>
+            Garantía de acompañamiento: 1 año de soporte incluido
+          </small>
+        </div>
       </div>
     </div>
 

@@ -1,9 +1,26 @@
-<section class="section section-lg pt-0 line-bottom-light">
+<section class="section section-lg line-bottom-light">
   <div class="container">
     <div class="row justify-content-center mb-5 mb-lg-6">
       <div class="col-12 col-md-8 text-center">
-        <h1 class="display-3 mb-4">Últimos proyectos</h1>
-        <p class="lead">Estos son algunos de los trabajos más recientes que he desarrollado.</p>
+        <h1 class="display-3 mb-4">Casos de éxito reales</h1>
+        <p class="lead">
+          Proyectos que han transformado negocios y generado resultados tangibles. 
+          Cada uno representa una solución única para un desafío específico.
+        </p>
+        <div class="mt-4">
+          <span class="badge badge-primary badge-pill mr-2">
+            <i class="fas fa-check-circle mr-1"></i>
+            Proyectos completados
+          </span>
+          <span class="badge badge-soft-primary badge-pill mr-2">
+            <i class="fas fa-users mr-1"></i>
+            Clientes satisfechos
+          </span>
+          <span class="badge badge-soft-primary badge-pill">
+            <i class="fas fa-rocket mr-1"></i>
+            Resultados probados
+          </span>
+        </div>
       </div>
     </div>
 
@@ -28,12 +45,41 @@
           </div>
 
           <div class="col-lg py-2">
-            <div class="card timeline-card bg-soft shadow-soft border-light p-3">
+            <div class="card timeline-card bg-white shadow-soft border-light p-3 h-100">
               <div class="card-body p-4">
-                <h4 class="mb-3">
-                  <span class="d-lg-none">{{ loop.index }}.</span> {{ project.title }}
-                </h4>
-                <p class="my-2">{{ project.client }}</p>
+                <div class="d-flex align-items-start mb-3">
+                  <div class="icon icon-shape icon-shape-primary rounded-circle mr-3">
+                    <i class="fas fa-project-diagram"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h4 class="mb-2">
+                      <span class="d-lg-none text-primary font-weight-bold">{{ loop.index }}.</span> 
+                      {{ project.title }}
+                    </h4>
+                    <div class="d-flex align-items-center mb-2">
+                      <i class="fas fa-building text-muted mr-2"></i>
+                      <span class="text-muted font-weight-500">{{ project.client }}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {% if project.resume %}
+                <p class="text-gray mb-3">{{ project.resume }}</p>
+                {% endif %}
+                
+                <div class="d-flex flex-wrap align-items-center">
+                  {% if project.url %}
+                  <a href="{{ project.url }}" target="_blank" class="btn btn-sm btn-outline-primary mr-2 mb-2">
+                    <i class="fas fa-external-link-alt mr-1"></i>
+                    Ver proyecto
+                  </a>
+                  {% endif %}
+                  
+                  <span class="badge badge-soft-success badge-pill">
+                    <i class="fas fa-check mr-1"></i>
+                    Completado
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -43,6 +89,75 @@
           {% endif %}
         </div>
         {% endfor %}
+      </div>
+    </div>
+    
+    <!-- Sección de estadísticas y llamada a la acción -->
+    <div class="row mt-6">
+      <div class="col-12">
+        <div class="card bg-primary text-white border-0 shadow-soft">
+          <div class="card-body p-5">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h3 class="mb-3">¿Quieres ser el próximo caso de éxito?</h3>
+                <p class="lead mb-0">
+                  Cada proyecto es único, pero todos comparten algo: 
+                  <strong>resultados que superan expectativas</strong>. 
+                  Conversemos sobre cómo puedo ayudarte a alcanzar tus objetivos.
+                </p>
+              </div>
+              <div class="col-md-4 text-center text-md-right mt-4 mt-md-0">
+                <a href="/contacto" class="btn btn-white text-primary btn-lg">
+                  <i class="fas fa-rocket mr-2"></i>
+                  Iniciar mi proyecto
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Estadísticas rápidas -->
+    <div class="row mt-5">
+      <div class="col-md-3 col-6 mb-4">
+        <div class="text-center">
+          <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h4 class="text-primary font-weight-bold mb-1">20+</h4>
+          <p class="text-muted mb-0">Proyectos completados</p>
+        </div>
+      </div>
+      
+      <div class="col-md-3 col-6 mb-4">
+        <div class="text-center">
+          <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4 class="text-primary font-weight-bold mb-1">15+</h4>
+          <p class="text-muted mb-0">Clientes satisfechos</p>
+        </div>
+      </div>
+      
+      <div class="col-md-3 col-6 mb-4">
+        <div class="text-center">
+          <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h4 class="text-primary font-weight-bold mb-1">5+</h4>
+          <p class="text-muted mb-0">Años de experiencia</p>
+        </div>
+      </div>
+      
+      <div class="col-md-3 col-6 mb-4">
+        <div class="text-center">
+          <div class="icon icon-shape icon-shape-primary rounded-circle mb-3 mx-auto">
+            <i class="fas fa-star"></i>
+          </div>
+          <h4 class="text-primary font-weight-bold mb-1">100%</h4>
+          <p class="text-muted mb-0">Proyectos exitosos</p>
+        </div>
       </div>
     </div>
   </div>

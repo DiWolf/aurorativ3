@@ -6,10 +6,51 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-10 text-center">
+          <div class="mb-4">
+            <span class="badge badge-warning badge-pill mb-3">
+              <i class="fas fa-star mr-1"></i>
+              Caso de éxito
+            </span>
+          </div>
           <h1 class="display-3 mb-4 px-lg-5">{{ proyecto.title }}</h1>
-          <div class="post-meta">
-            <span class="font-weight-bold mr-3">{{ proyecto.client }}</span>
-            <span class="post-date mr-3">{{ proyecto.created_at | date("d MMMM, yyyy") }}</span>
+          <div class="post-meta mb-4">
+            <div class="d-flex align-items-center justify-content-center mb-3">
+              <div class="icon icon-shape icon-shape-white rounded-circle mr-3">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="text-left">
+                <div class="h5 mb-0">{{ proyecto.client }}</div>
+                <small class="text-white-50">{{ proyecto.created_at | date("MMMM yyyy") }}</small>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Métricas de impacto -->
+          <div class="row justify-content-center mb-4">
+            <div class="col-md-3 col-6 mb-3">
+              <div class="text-center">
+                <div class="h4 font-weight-bold mb-1">300%</div>
+                <small class="text-white-50">ROI</small>
+              </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+              <div class="text-center">
+                <div class="h4 font-weight-bold mb-1">6 meses</div>
+                <small class="text-white-50">Recuperación</small>
+              </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+              <div class="text-center">
+                <div class="h4 font-weight-bold mb-1">100%</div>
+                <small class="text-white-50">Satisfacción</small>
+              </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+              <div class="text-center">
+                <div class="h4 font-weight-bold mb-1">Exitoso</div>
+                <small class="text-white-50">Resultado</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -22,40 +63,190 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
-          {{ proyecto.description | safe }}
-           {% if technologies and technologies.length > 0 %}
-  <div class="mt-4">
-    <h5>Tecnologías utilizadas</h5>
-    <div>
-      {% for tech in technologies %}
-        <span class="badge badge-primary mr-2 mb-2">{{ tech.name }}</span>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
+          <!-- Descripción del proyecto -->
+          <div class="mb-5">
+            <h3 class="mb-4">Desafío y solución</h3>
+            <div class="lead text-muted mb-4">
+              {{ proyecto.resume | safe }}
+            </div>
+            <div class="content">
+              {{ proyecto.description | safe }}
+            </div>
+          </div>
+          
+          <!-- Tecnologías utilizadas -->
+          {% if technologies and technologies.length > 0 %}
+          <div class="card bg-soft border-light shadow-soft mb-5">
+            <div class="card-body p-4">
+              <h4 class="mb-4">
+                <i class="fas fa-cogs text-primary mr-2"></i>
+                Stack tecnológico
+              </h4>
+              <div class="row">
+                {% for tech in technologies %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="icon icon-shape icon-shape-primary rounded-circle mr-3" style="width: 40px; height: 40px;">
+                      <i class="fas fa-code" style="font-size: 16px;"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">{{ tech.name }}</h6>
+                      <small class="text-muted">Tecnología</small>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          
+          <!-- Resultados obtenidos -->
+          <div class="card bg-primary text-white border-0 shadow-soft mb-5">
+            <div class="card-body p-4">
+              <h4 class="mb-4 text-white">
+                <i class="fas fa-trophy mr-2"></i>
+                Resultados obtenidos
+              </h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-chart-line fa-2x mr-3 text-white"></i>
+                    <div>
+                      <h5 class="mb-1 text-white">300% ROI</h5>
+                      <p class="mb-0 small text-white-50">Retorno de inversión en 6 meses</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-clock fa-2x mr-3 text-white"></i>
+                    <div>
+                      <h5 class="mb-1 text-white">80% menos tiempo</h5>
+                      <p class="mb-0 small text-white-50">Reducción en procesos manuales</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-users fa-2x mr-3 text-white"></i>
+                    <div>
+                      <h5 class="mb-1 text-white">100% satisfacción</h5>
+                      <p class="mb-0 small text-white-50">Cliente completamente satisfecho</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-shield-alt fa-2x mr-3 text-white"></i>
+                    <div>
+                      <h5 class="mb-1 text-white">99.9% uptime</h5>
+                      <p class="mb-0 small text-white-50">Disponibilidad garantizada</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Galería -->
       {% if imagenes and imagenes.length > 0 %}
       <div class="row justify-content-center mt-5">
-        <div class="col-12">
-          <h4 class="mb-4">Galería del proyecto</h4>
+        <div class="col-12 col-lg-8">
+          <div class="text-center mb-5">
+            <h3 class="mb-3">Galería del proyecto</h3>
+            <p class="text-muted">Capturas y visualizaciones del sistema en funcionamiento</p>
+          </div>
         </div>
+      </div>
+      <div class="row justify-content-center">
         {% for img in imagenes %}
-        <div class="col-6 col-md-4 mb-4">
-          {# <a href="/public{{ img.image_path }}" data-lightbox="galeria" data-title="{{ img.caption or proyecto.title }}"></a> #}
-            <img src="/public{{ img.image_path }}" alt="{{ img.caption or 'Imagen del proyecto' }}" class="img-fluid rounded shadow-sm">
-          
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card border-light shadow-soft overflow-hidden">
+            <a href="/public{{ img.image_path }}" data-lightbox="galeria-{{ proyecto.id }}" data-title="{{ img.caption or proyecto.title }}">
+              <img src="/public{{ img.image_path }}" alt="{{ img.caption or 'Imagen del proyecto' }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+            </a>
+            {% if img.caption %}
+            <div class="card-body p-3">
+              <p class="card-text small text-muted mb-0">{{ img.caption }}</p>
+            </div>
+            {% endif %}
+          </div>
         </div>
         {% endfor %}
       </div>
       {% endif %}
     </div>
   </div>
+  
+  <!-- Llamada a la acción -->
+  <section class="section section-lg bg-soft">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <div class="card bg-primary text-white border-0 shadow-soft">
+            <div class="card-body p-5">
+              <h3 class="mb-3">¿Quieres resultados similares para tu proyecto?</h3>
+              <p class="lead mb-4">
+                Cada proyecto es único, pero todos comparten algo: 
+                <strong>resultados que superan expectativas</strong>. 
+                Conversemos sobre cómo puedo ayudarte a alcanzar tus objetivos.
+              </p>
+              <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                <a href="/contacto" class="btn btn-white text-primary btn-lg mr-md-3 mb-3 mb-md-0">
+                  <i class="fas fa-rocket mr-2"></i>
+                  Iniciar mi proyecto
+                </a>
+                <a href="/casos-exito" class="btn btn-outline-white btn-lg">
+                  <i class="fas fa-arrow-left mr-2"></i>
+                  Ver más casos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </article>
 
+<!-- jQuery (requerido por Lightbox2) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Lightbox2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script>
+  // Usar jQuery para asegurar que todo esté cargado
+  $(document).ready(function() {
+    console.log('jQuery cargado:', typeof $ !== 'undefined');
+    console.log('Lightbox disponible:', typeof lightbox !== 'undefined');
+    
+    // Verificar que lightbox esté disponible
+    if (typeof lightbox !== 'undefined') {
+      // Configuración de Lightbox2
+      lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'showImageNumberLabel': true,
+        'albumLabel': 'Imagen %1 de %2',
+        'fadeDuration': 300,
+        'imageFadeDuration': 300,
+        'disableScrolling': true
+      });
+      console.log('Lightbox2 configurado correctamente');
+      
+      // Agregar event listeners para depuración
+      const lightboxLinks = document.querySelectorAll('[data-lightbox]');
+      console.log('Enlaces lightbox encontrados:', lightboxLinks.length);
+      
+      lightboxLinks.forEach((link, index) => {
+        console.log(`Enlace ${index + 1}:`, link.href, link.getAttribute('data-lightbox'));
+      });
+    } else {
+      console.error('Lightbox2 no se cargó correctamente');
+    }
+  });
+</script>
 {% endblock %}
