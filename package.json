@@ -12,7 +12,7 @@
     "build:css": "sass public/admin/scss:public/admin/css public/front/scss:public/front/css --no-source-map",
     "watch:css": "sass --watch public/admin/scss:public/admin/css",
     "migrate:dev": "ts-node src/scripts/migrate.ts",
-    "migrate:prod": "node migrate.js",
+    "migrate:prod": "node build/scripts/migrate.js",
     "migrate:standalone": "node migrate.js",
     "migrate:alt": "node scripts/migrate.js",
     "migrate": "npm run migrate:dev",
