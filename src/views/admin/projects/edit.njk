@@ -59,6 +59,22 @@
                      value="{{ proyecto.url }}">
             </div>
 
+            <!-- Tecnologías -->
+            <div class="form-group">
+              <label for="technologies">Tecnologías</label>
+              <select id="technologies" name="technologies[]" class="form-control" multiple>
+                {% for tech in technologies %}
+                  <option value="{{ tech.id }}"
+                    {% for projectTech in projectTechnologies %}
+                      {% if projectTech.id == tech.id %}selected{% endif %}
+                    {% endfor %}>
+                    {{ tech.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <small class="form-text text-muted">Mantén presionada CTRL (o CMD en Mac) para seleccionar varias.</small>
+            </div>
+
             <!-- Imagen principal -->
             <div class="form-group">
               <label for="main_image">Imagen principal</label>
@@ -78,7 +94,7 @@
                 <div class="mb-3 d-flex flex-wrap">
                   {% for img in imagenes %}
                     <div class="mr-3 mb-3 text-center">
-                      <img src="{{ img.image_path }}" alt="Imagen extra"
+                      <img src="/public{{ img.image_path }}" alt="Imagen extra"
                            class="img-thumbnail" style="max-height: 120px;">
                       <form action="/admin/projects/images/{{ img.id }}/delete" method="post" style="margin-top: 5px;">
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

@@ -27,6 +27,14 @@ export async function removeTechnologyFromProject(projectId: number, technologyI
   );
 }
 
+// Quitar todas las tecnologías de un proyecto
+export async function removeAllTechnologiesFromProject(projectId: number) {
+  return await query(
+    `DELETE FROM project_technologies WHERE project_id = ?`,
+    [projectId]
+  );
+}
+
 // Listar tecnologías de un proyecto
 export async function findTechnologiesByProject(projectId: number): Promise<TechnologyRow[]> {
   return await query<TechnologyRow[]>(

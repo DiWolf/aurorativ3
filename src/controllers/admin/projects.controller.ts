@@ -33,7 +33,10 @@ export default {
   async store(req: Request, res: Response) {
     try {
       const { client, title, description, resume, url, technologies } = req.body;
-      const main_image = req.file ? `/uploads/${req.file.filename}` : null;
+      // Con upload.fields(), el archivo main_image está en req.files.main_image[0]
+      const main_image = req.files && (req.files as any).main_image && (req.files as any).main_image[0] 
+        ? `/uploads/${(req.files as any).main_image[0].filename}` 
+        : null;
 
       const result = await projectsQuery.insertProject({
         client,
@@ -86,11 +89,17 @@ export default {
         return res.redirect("/admin/projects");
       }
 
-      const imagenes = await projectImagesQuery.findImagesByProject(id);
+      const [imagenes, technologies, projectTechnologies] = await Promise.all([
+        projectImagesQuery.findImagesByProject(id),
+        projectTecnologies.findAllTechnologies(),
+        projectTecnologies.findTechnologiesByProject(id)
+      ]);
 
       res.render("admin/projects/edit.njk", {
         proyecto,
         imagenes,
+        technologies,
+        projectTechnologies,
         title: "Editar Proyecto",
       });
     } catch (error) {
@@ -103,7 +112,7 @@ export default {
   async update(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
-      const { client, title, description, resume, url } = req.body;
+      const { client, title, description, resume, url, technologies } = req.body;
 
       // Traemos el proyecto actual
       const proyectoExistente = await projectsQuery.findProjectById(id);
@@ -114,8 +123,9 @@ export default {
       }
 
       // Si hay archivo, usamos el nuevo; si no, dejamos el existente
-      const main_image = req.file
-        ? `/uploads/${req.file.filename}`
+      // Con upload.fields(), el archivo main_image está en req.files.main_image[0]
+      const main_image = req.files && (req.files as any).main_image && (req.files as any).main_image[0]
+        ? `/uploads/${(req.files as any).main_image[0].filename}`
         : proyectoExistente.main_image;
 
       await projectsQuery.updateProject(id, {
@@ -126,6 +136,20 @@ export default {
         url,
         main_image,
       });
+
+      // Actualizar tecnologías del proyecto
+      if (technologies && Array.isArray(technologies)) {
+        // Primero eliminamos todas las tecnologías actuales del proyecto
+        await projectTecnologies.removeAllTechnologiesFromProject(id);
+        // Luego agregamos las nuevas tecnologías seleccionadas
+        await projectsQuery.insertProjectTechnologies(
+          id,
+          technologies.map(Number)
+        );
+      } else {
+        // Si no se seleccionaron tecnologías, eliminamos todas
+        await projectTecnologies.removeAllTechnologiesFromProject(id);
+      }
 
       // Manejar imágenes adicionales nuevas
       if (req.files && "extra_images" in req.files) {
