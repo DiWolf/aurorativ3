@@ -1,4 +1,4 @@
-INSERT INTO technologies (name) VALUES
+INSERT IGNORE INTO technologies (name) VALUES
 -- Backend
 ('Node.js'),
 ('TypeScript'),

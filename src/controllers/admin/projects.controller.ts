@@ -3,6 +3,9 @@ import { Request, Response } from "express";
 import * as projectsQuery from "@queries/projects.query";
 import * as projectTecnologies from "@queries/projectTechnologies.query";
 import * as projectImagesQuery from "@queries/projectImages.query";
+// Añade al inicio del archivo si no está:
+import fs from "fs";
+import path from "path";
 
 export default {
   // Listar todos los proyectos
@@ -187,4 +190,62 @@ export default {
       res.redirect("/admin/projects");
     }
   },
-};
+
+  // Eliminar imagen adicional
+  async destroyImage(req: Request, res: Response) {
+    const imageId = Number(req.params.imageId);
+    const projectId = Number(req.params.projectId);
+
+    if (Number.isNaN(imageId) || Number.isNaN(projectId)) {
+      console.warn('destroyImage: parámetros inválidos', { imageId: req.params.imageId, projectId: req.params.projectId });
+      return res.status(400).json({ success: false, message: "Parámetros inválidos" });
+    }
+
+    try {
+      // 1) Obtener la imagen para comprobar existencia y obtener el path
+      // Asegúrate de que projectImagesQuery tenga una función equivalente a findImageById
+      const img: any = await projectImagesQuery.findImageById(imageId);
+
+      if (!img) {
+        console.warn(`destroyImage: imagen ${imageId} no encontrada`);
+        return res.status(404).json({ success: false, message: "Imagen no encontrada" });
+      }
+
+      // Verificar que la imagen pertenezca al proyecto indicado
+      // Ajusta la propiedad según tu esquema: aquí supongo img.project_id
+      if (Number(img.project_id) !== projectId) {
+        console.warn(`destroyImage: la imagen ${imageId} no pertenece al proyecto ${projectId}`);
+        return res.status(404).json({ success: false, message: "Imagen no encontrada en ese proyecto" });
+      }
+
+      // 2) Intentar borrar el archivo del filesystem (si existe)
+      // Suponiendo que image_path tiene formato "/uploads/xxx.jpg" (como en tu insert)
+      const imagePathStored: string = img.image_path || img.path || "";
+      if (imagePathStored) {
+        // Quitar leading slash si existe y resolver en carpeta /public
+        const cleaned = imagePathStored.startsWith("/") ? imagePathStored.slice(1) : imagePathStored;
+        const filePath = path.join(process.cwd(), "public", cleaned);
+
+        try {
+          await fs.promises.access(filePath, fs.constants.F_OK);
+          await fs.promises.unlink(filePath);
+          console.log(`destroyImage: archivo borrado -> ${filePath}`);
+        } catch (fsErr) {
+          // Si no existe el archivo no es crítico — solo lo registramos
+          console.warn(`destroyImage: no se pudo borrar archivo (quizá no existe): ${filePath}`, (fsErr as Error).message);
+        }
+      } else {
+        console.warn(`destroyImage: image_path vacío para imagen ${imageId}`);
+      }
+
+      // 3) Borrar registro en BD
+      await projectImagesQuery.deleteImage(imageId);
+
+      // 4) Responder JSON
+      return res.json({ success: true, message: "Imagen eliminada correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar imagen:", error);
+      return res.status(500).json({ success: false, message: "Error al eliminar la imagen" });
+    }
+  }
+}

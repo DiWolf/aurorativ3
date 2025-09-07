@@ -28,6 +28,17 @@ export async function insertImage(data: { project_id: number; image_path: string
   );
 }
 
+// Buscar imagen por ID
+export async function findImageById(id: number): Promise<ProjectImageRow | null> {
+  const result = await query<ProjectImageRow[]>(
+    `SELECT id, project_id, image_path, caption, created_at
+     FROM project_images
+     WHERE id = ?`,
+    [id]
+  );
+  return result.length > 0 ? result[0] : null;
+}
+
 // Eliminar imagen
 export async function deleteImage(id: number) {
   return await query(`DELETE FROM project_images WHERE id = ?`, [id]);

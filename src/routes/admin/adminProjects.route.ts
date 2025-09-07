@@ -21,6 +21,9 @@ router.post(
   adminProjectsController.store
 );
 
+// 📌 Eliminar imagen adicional (DEBE ir ANTES que las rutas con :id)
+router.post("/:projectId/images/:imageId/delete", adminProjectsController.destroyImage);
+
 // 📌 Formulario de edición
 router.get("/:id/edit", adminProjectsController.editForm);
 

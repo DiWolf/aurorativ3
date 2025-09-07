@@ -21,7 +21,7 @@
             <div class="alert alert-success">{{ success }}</div>
           {% endif %}
 
-          <form action="/admin/projects/{{ proyecto.id }}/edit" method="post" enctype="multipart/form-data">
+          <form id="editForm" action="/admin/projects/{{ proyecto.id }}/edit" method="post" enctype="multipart/form-data">
             <!-- Cliente -->
             <div class="form-group">
               <label for="client">Cliente</label>
@@ -39,9 +39,7 @@
             <!-- Descripción -->
             <div class="form-group">
               <label for="description">Descripción</label>
-              <textarea id="description" name="description" rows="6" class="form-control">
-                {{ proyecto.description | safe }}
-              </textarea>
+              <textarea id="description" name="description" rows="6" class="form-control">{{ proyecto.description | safe }}</textarea>
             </div>
 
             <!-- Resumen -->
@@ -80,7 +78,7 @@
               <label for="main_image">Imagen principal</label>
               {% if proyecto.main_image %}
                 <div class="mb-2">
-                  <img src="{{ proyecto.main_image }}" alt="{{ proyecto.title }}"
+                  <img src="/public{{ proyecto.main_image }}" alt="{{ proyecto.title }}"
                        class="img-thumbnail" style="max-height: 120px;">
                 </div>
               {% endif %}
@@ -93,12 +91,13 @@
               {% if imagenes and imagenes.length > 0 %}
                 <div class="mb-3 d-flex flex-wrap">
                   {% for img in imagenes %}
-                    <div class="mr-3 mb-3 text-center">
+                    <div id="img-card-{{ img.id }}" class="mr-3 mb-3 text-center">
                       <img src="/public{{ img.image_path }}" alt="Imagen extra"
                            class="img-thumbnail" style="max-height: 120px;">
-                      <form action="/admin/projects/images/{{ img.id }}/delete" method="post" style="margin-top: 5px;">
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                      </form>
+                      <button type="button" class="btn btn-sm btn-danger" style="margin-top: 5px;"
+                              onclick="deleteImage({{ img.id }}, {{ proyecto.id }})">
+                        Eliminar
+                      </button>
                     </div>
                   {% endfor %}
                 </div>
@@ -114,9 +113,18 @@
               <small class="form-text text-muted">Puedes seleccionar varias imágenes nuevas.</small>
             </div>
 
-            <!-- Botón -->
-            <div class="text-right">
-              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <!-- Botones -->
+            <div class="d-flex justify-content-between">
+              <form action="/admin/projects/{{ proyecto.id }}/delete" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?')">
+                <button type="submit" class="btn btn-danger">
+                  <i class="ni ni-fat-remove"></i>
+                  Eliminar Proyecto
+                </button>
+              </form>
+              <button type="submit" class="btn btn-primary" form="editForm">
+                <i class="ni ni-check-bold"></i>
+                Guardar cambios
+              </button>
             </div>
           </form>
         </div>
@@ -124,31 +132,117 @@
     </div>
   </div>
 
-  <!-- Editor TinyMCE -->
+  {# Si usas csurf, renderiza meta tag con token desde el backend: res.render(..., { csrfToken: req.csrfToken() }) #}
+  {% if csrfToken %}
+    <meta name="csrf-token" content="{{ csrfToken }}">
+  {% endif %}
+
+  <!-- Editor TinyMCE y Script de eliminación -->
   <script>
-    tinymce.init({
-      selector: '#description',
-      plugins: [
-        'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
-        'link', 'lists', 'media', 'searchreplace', 'table',
-        'visualblocks', 'wordcount', 'checklist', 'mediaembed',
-        'casechange', 'formatpainter', 'pageembed', 'a11ychecker',
-        'tinymcespellchecker', 'permanentpen', 'powerpaste',
-        'advtable', 'advcode', 'advtemplate', 'uploadcare',
-        'mentions', 'tinycomments', 'tableofcontents',
-        'footnotes', 'mergetags', 'autocorrect', 'typography',
-        'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
-      ],
-      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | ' +
-               'link media table mergetags | addcomment showcomments | ' +
-               'spellcheckdialog a11ycheck typography uploadcare | ' +
-               'align lineheight | checklist numlist bullist indent outdent | ' +
-               'emoticons charmap | removeformat',
-      menubar: false,
-      branding: false,
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'AuroraTI',
-      uploadcare_public_key: '9be29f0fa526627d7dca'
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inicializa TinyMCE (si está cargado)
+      if (typeof tinymce !== 'undefined') {
+        tinymce.init({
+          selector: '#description',
+          plugins: [
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+            'link', 'lists', 'media', 'searchreplace', 'table',
+            'visualblocks', 'wordcount', 'checklist', 'mediaembed',
+            'casechange', 'formatpainter', 'pageembed', 'a11ychecker',
+            'tinymcespellchecker', 'permanentpen', 'powerpaste',
+            'advtable', 'advcode', 'advtemplate', 'uploadcare',
+            'mentions', 'tinycomments', 'tableofcontents',
+            'footnotes', 'mergetags', 'autocorrect', 'typography',
+            'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | ' +
+                   'link media table mergetags | addcomment showcomments | ' +
+                   'spellcheckdialog a11ycheck typography uploadcare | ' +
+                   'align lineheight | checklist numlist bullist indent outdent | ' +
+                   'emoticons charmap | removeformat',
+          menubar: false,
+          branding: false,
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'AuroraTI',
+          uploadcare_public_key: '9be29f0fa526627d7dca'
+        });
+      }
+
+      // Función global para eliminar imagen
+      window.deleteImage = function(imageId, projectId) {
+        console.log(`Intentando eliminar imagen ${imageId} del proyecto ${projectId}`);
+
+        if (typeof Swal === 'undefined') {
+          if (!confirm('¿Eliminar imagen? Esta acción no se puede deshacer.')) return;
+        }
+
+        const runDelete = () => {
+        console.log(`Eliminando imagen ${imageId} del proyecto ${projectId}`);  
+          const url = `/admin/projects/${projectId}/images/${imageId}/delete`;
+          const headers = { 'Accept': 'application/json' };
+
+          // Si existe meta csrf-token en la página, leemos y la enviamos
+          const meta = document.querySelector('meta[name="csrf-token"]');
+          if (meta) headers['X-CSRF-Token'] = meta.getAttribute('content');
+
+          fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin', // importante si usas sesiones/cookies
+            headers
+          })
+          .then(response => {
+            console.log('Status:', response.status, 'Content-Type:', response.headers.get('content-type'));
+            if (!response.ok) throw new Error('Respuesta no OK: ' + response.status);
+            const ct = response.headers.get('content-type') || '';
+            if (ct.includes('application/json')) return response.json();
+            // si no hay JSON, asumimos éxito en 200/204
+            return { success: response.status === 200 || response.status === 204 };
+          })
+          .then(data => {
+            if (data && data.success) {
+              // eliminar del DOM sin recargar
+              const el = document.getElementById(`img-card-${imageId}`);
+              if (el) el.remove();
+
+              if (typeof Swal !== 'undefined') {
+                Swal.fire({ title: '¡Eliminado!', text: 'La imagen ha sido eliminada.', icon: 'success', timer: 1200, showConfirmButton:false });
+              }
+            } else {
+              throw new Error(data.message || 'No se pudo eliminar la imagen');
+            }
+          })
+          .catch(err => {
+            console.error('Error al eliminar imagen:', err);
+            if (typeof Swal !== 'undefined') {
+              Swal.fire('Error', 'Hubo un problema al eliminar la imagen: ' + err.message, 'error');
+            } else {
+              alert('Error al eliminar la imagen: ' + err.message);
+            }
+          });
+        };
+
+        // Si tienes Swal, muestra confirm; si no, usa confirm simple
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            console.log('result', result);
+            // Compatibilidad con diferentes versiones de SweetAlert2
+            if (result.isConfirmed || result.value === true) {
+              runDelete();
+            }
+          });
+        } else {
+          if (confirm('¿Eliminar imagen? Esta acción no se puede deshacer.')) runDelete();
+        }
+      };
     });
   </script>
 {% endblock %}
