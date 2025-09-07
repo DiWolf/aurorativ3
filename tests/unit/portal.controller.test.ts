@@ -43,6 +43,12 @@ describe('Portal Controller', () => {
       expect(projectsQuery.findLatestProjects).toHaveBeenCalledWith(4);
       expect(mockResponse.render).toHaveBeenCalledWith('portal/index.njk', {
         title: 'Inicio',
+        seo_title: 'Desarrollador Backend Freelance en Lázaro Cárdenas | Francisco Javier - Aurora TI',
+        seo_description: 'Desarrollador backend freelance especializado en Node.js, TypeScript y desarrollo web. Creo sistemas empresariales robustos para empresas y gobiernos locales en Lázaro Cárdenas, Michoacán.',
+        canonical_url: 'https://aurorati.mx/',
+        og_title: 'Desarrollador Backend Freelance en Lázaro Cárdenas | Francisco Javier',
+        og_description: 'Desarrollador backend freelance especializado en Node.js, TypeScript y desarrollo web. Sistemas empresariales robustos para empresas y gobiernos locales.',
+        og_url: 'https://aurorati.mx/',
         projects: mockProjects,
       });
     });
@@ -57,6 +63,12 @@ describe('Portal Controller', () => {
       expect(consoleSpy).toHaveBeenCalledWith('Error en index:', expect.any(Error));
       expect(mockResponse.render).toHaveBeenCalledWith('portal/index.njk', {
         title: 'Inicio',
+        seo_title: 'Desarrollador Backend Freelance en Lázaro Cárdenas | Francisco Javier - Aurora TI',
+        seo_description: 'Desarrollador backend freelance especializado en Node.js, TypeScript y desarrollo web. Creo sistemas empresariales robustos para empresas y gobiernos locales en Lázaro Cárdenas, Michoacán.',
+        canonical_url: 'https://aurorati.mx/',
+        og_title: 'Desarrollador Backend Freelance en Lázaro Cárdenas | Francisco Javier',
+        og_description: 'Desarrollador backend freelance especializado en Node.js, TypeScript y desarrollo web. Sistemas empresariales robustos para empresas y gobiernos locales.',
+        og_url: 'https://aurorati.mx/',
         projects: [],
       });
 

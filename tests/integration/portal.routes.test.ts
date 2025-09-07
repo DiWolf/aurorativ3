@@ -72,7 +72,7 @@ describe('Portal Routes Integration Tests', () => {
         .get('/')
         .expect(200);
 
-      expect(response.text).toContain('Construyo software a tu medida');
+      expect(response.text).toContain('Desarrollador Backend Freelance');
       expect(projectsQuery.findLatestProjects).toHaveBeenCalledWith(4);
     });
 
@@ -83,7 +83,7 @@ describe('Portal Routes Integration Tests', () => {
         .get('/')
         .expect(200);
 
-      expect(response.text).toContain('Construyo software a tu medida');
+      expect(response.text).toContain('Desarrollador Backend Freelance');
     });
   });
 
@@ -95,7 +95,7 @@ describe('Portal Routes Integration Tests', () => {
         .get('/quien-soy')
         .expect(200);
 
-      expect(response.text).toContain('¿Quién soy?');
+      expect(response.text).toContain('Soy Francisco Javier');
       expect(projectsQuery.findLatestProjects).toHaveBeenCalledWith();
     });
   });
@@ -113,7 +113,7 @@ describe('Portal Routes Integration Tests', () => {
         .get('/casos-exito')
         .expect(200);
 
-      expect(response.text).toContain('Casos de Éxito');
+      expect(response.text).toContain('Transformaciones que marcan la diferencia');
       expect(projectsQuery.findProjectsPaginated).toHaveBeenCalledWith(1, 7);
     });
 
