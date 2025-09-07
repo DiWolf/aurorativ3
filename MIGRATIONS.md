@@ -66,11 +66,16 @@ scripts/
 ## Comandos Disponibles
 
 - `npm run migrate:dev` - Ejecuta migraciones en desarrollo
-- `npm run migrate:prod` - Ejecuta migraciones desde build (producción)
+- `npm run migrate:prod` - Ejecuta migraciones desde raíz (producción)
 - `npm run migrate:standalone` - Ejecuta migraciones independientemente (producción)
+- `npm run migrate:alt` - Ejecuta migraciones desde scripts/ (alternativa)
 - `npm run migrate` - Alias para desarrollo
 - `npm start` - Inicia la aplicación con migraciones automáticas (producción)
 - `npm run start:dev` - Inicia en modo desarrollo con migraciones automáticas
+
+## Scripts de Diagnóstico
+
+- `node debug-migration.js` - Diagnostica problemas de rutas y estructura de carpetas
 
 ## Notas Importantes
 

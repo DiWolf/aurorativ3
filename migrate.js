@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Script de migración para producción
- * Uso: node scripts/migrate.js
+ * Script de migración para producción - Versión desde raíz
+ * Uso: node migrate.js
  */
 
 const fs = require("fs");
@@ -13,11 +13,10 @@ require("dotenv").config();
 // Función para encontrar la carpeta de migraciones
 function findMigrationsDir() {
   const possiblePaths = [
-    path.join(__dirname, "../build/migrations"),  // Desde scripts/
-    path.join(__dirname, "build/migrations"),     // Desde raíz
-    path.join(process.cwd(), "build/migrations"), // Desde directorio actual
-    path.join(process.cwd(), "migrations"),       // Fallback a src/migrations
-    path.join(__dirname, "../src/migrations")     // Fallback desde scripts/
+    path.join(process.cwd(), "build/migrations"),  // Desde raíz del proyecto
+    path.join(process.cwd(), "src/migrations"),    // Fallback a src
+    path.join(__dirname, "build/migrations"),      // Desde directorio actual
+    path.join(__dirname, "src/migrations")         // Fallback desde directorio actual
   ];
 
   for (const migrationsPath of possiblePaths) {
@@ -42,6 +41,8 @@ async function runMigrations() {
 
   try {
     console.log("🔍 Conectando a la base de datos...");
+    console.log(`📂 Directorio actual: ${process.cwd()}`);
+    console.log(`📂 Directorio del script: ${__dirname}`);
     
     // Asegurar que exista la tabla migrations
     await connection.execute(`
